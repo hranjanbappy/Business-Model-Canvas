@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Model Canvas PDF Generator</title>
+<!-- Include html2pdf -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+<form id="model-form" method="POST">
+    <h2>Customer Segments</h2>
+    <textarea name="customerSegments" id="customerSegments" rows="10" cols="90" placeholder="Describe your target customers" maxlength="500"></textarea>
+    <h2>Value Propositions</h2>
+    <textarea name="valuePropositions" id="valuePropositions" rows="10" cols="90" placeholder="What value do you offer your customers?" maxlength="500"></textarea>
+    <h2>Channels</h2>
+    <textarea name="channels" id="channels" rows="10" cols="90" placeholder="How will you reach your customers?" maxlength="500"></textarea>
+    <h2>Customer Relationships</h2>
+    <textarea name="customerRelationships" id="customerRelationships" rows="10" cols="90" placeholder="What type of relationship will you have with your customers?" maxlength="500"></textarea>
+    <h2>Revenue Streams</h2>
+    <textarea name="revenueStreams" id="revenueStreams" rows="10" cols="90" placeholder="How will you generate revenue?" maxlength="500"></textarea>
+    <h2>Key Resources</h2>
+    <textarea name="keyResources" id="keyResources" rows="10" cols="90" placeholder="What resources are essential for your business?" maxlength="500"></textarea>
+    <h2>Key Activities</h2>
+    <textarea name="keyActivities" id="keyActivities" rows="10" cols="90" placeholder="What key activities are required to deliver your value proposition?" maxlength="500"></textarea>
+    <h2>Key Partnerships</h2>
+    <textarea name="keyPartnerships" id="keyPartnerships" rows="10" cols="90" placeholder="Who are your key partners and suppliers?" maxlength="500"></textarea>
+    <h2>Cost Structure</h2>
+    <textarea name="costStructure" id="costStructure" rows="10" cols="90" placeholder="What are the costs associated with your business?" maxlength="500"></textarea>
+</form>
+<button type="button" onclick="generatePDF()">Download PDF</button>
+
+<script>
+// Function to limit characters in textarea and display character count
+function limitCharacters(textareaId, counterId, limit) {
+    const textarea = document.getElementById(textareaId);
+    const counter = document.getElementById(counterId);
+    textarea.addEventListener('input', function() {
+        if (this.value.length > limit) {
+            this.value = this.value.substring(0, limit);
+        }
+        counter.textContent = this.value.length + ' / ' + limit + ' characters';
+    });
+}
+
+// Call limitCharacters function for each textarea input
+limitCharacters('customerSegments', 'customerSegmentsCounter', 450);
+limitCharacters('valuePropositions', 'valuePropositionsCounter', 450);
+limitCharacters('channels', 'channelsCounter', 450);
+limitCharacters('customerRelationships', 'customerRelationshipsCounter', 450);
+limitCharacters('revenueStreams', 'revenueStreamsCounter', 450);
+limitCharacters('keyResources', 'keyResourcesCounter', 450);
+limitCharacters('keyActivities', 'keyActivitiesCounter', 450);
+limitCharacters('keyPartnerships', 'keyPartnershipsCounter', 450);
+limitCharacters('costStructure', 'costStructureCounter', 450);
+
+// Function to generate PDF
+function generatePDF() {
+    const element = document.getElementById('model-form');
+    html2pdf(element, {
+        margin: 10,
+        filename: 'business_model_canvas.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    });
+}
+</script>
+
+</body>
+</html>
